@@ -1,0 +1,5 @@
+hide CLI
+    used for hide command in release version of product, but not want let user known these command.
+code
+    Development by shell script.
+    
