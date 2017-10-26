@@ -2,4 +2,9 @@ hide CLI
     used for hide command in release version of product, but not want let user known these command.
 code
     Development by shell script.
-    
+
+design:
+    1. history command line write to .history file. while reach MAX_LINES use (sed -i '1d' .history) delete oldest line.
+    2. use directory name as the mode or view of command
+    3. use yaml file for tab completion function and show help text.
+
