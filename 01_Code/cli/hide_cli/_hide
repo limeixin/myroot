@@ -1,0 +1,46 @@
+#!/bin/bash
+set -x
+
+exit_with_info()
+{
+    echo "$@"
+    exit 0
+}
+
+#
+#check login password
+#return 0 is success, 1 is failed.
+#
+check_hide_password()
+{
+    [[ "$1" =~ ^[0-9]+$ ]] || return 1
+    local ymd=$(date +%Y-%m-%d)
+    local y=${ymd%%-*}
+    local tmp=${ymd#*-}
+    local m=${tmp%-*}
+    local d=${ymd##*-}
+    [ $1 -eq $((y + m * 1000 + d)) ] || return 1
+    return 0
+}
+
+i=0
+main()
+{
+    local password
+    echo -n "password: "
+    read -t 10 -s password
+    [ $? -eq 0 ] || exit_with_info "Timeout"
+    check_hide_password $password || exit 1
+
+    while [ 1 ]
+    do
+
+#bug: how can read a ctrl char??
+        local ch
+        read -N 1 ch
+        [ "q" == "$ch" ] && exit 0
+        echo $((i+=1))
+    done
+}
+
+main $@
