@@ -1,0 +1,33 @@
+use "read -n1 char" command of bash, function and control key in keyboard need read 3~5 char.
+and key value is following:
+---------------------------
+Esc	^[
+F1	^[OP
+F2	^[OQ
+F3	^[OR
+F4	^[OS
+F5	^[[15~
+F6	^[[17~
+F7	^[[18~
+F8	^[[19~
+F9	^[[20~
+F10	^[[21~
+F11	^[[23~
+F12	^[[24~
+
+insert	^[[2~
+delete	^[[3~
+Bachspace	^H
+
+UpArrow		^[[A
+DownArrow	^[[B
+RightArrow	^[[C
+LeftArrow	^[[D
+
+----------------------------
+notices:
+^[ is a control char
+
+TAB   is not use '\t' and Entry is not use '\n' check. they only a char to read.
+how just these char and whitespace char???
+
