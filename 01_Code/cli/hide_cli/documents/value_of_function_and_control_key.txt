@@ -31,3 +31,9 @@ notices:
 TAB   is not use '\t' and Entry is not use '\n' check. they only a char to read.
 how just these char and whitespace char???
 
+test Bachspace :
+limx@limx01 MINGW64 ~/Desktop
+$ read -n1 c ; [[ $c =~ [\^H] ]] && echo good
+good
+
+
