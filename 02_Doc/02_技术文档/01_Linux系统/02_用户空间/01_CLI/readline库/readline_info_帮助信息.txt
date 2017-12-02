@@ -1,0 +1,197 @@
+#include <stdio.h>
+#include <readline/readline.h>
+
+char *readline (const char *PROMPT);
+	替代gets()、fgets()函数，从用户输入返回一行字符串文本；
+	参数PROMPT是显示的提示符，也可以为NULL或者“”空字符串。
+	返回值是malloc申请的内存，使用完毕需要free()函数释放。
+	注：
+	返回值字符串不包含换行符；
+	如果遇到EOF或者空输入，则readline返回(char*)NULL。
+
+add_history(line)
+	
+int rl_bind_key (int KEY, rl_command_func_t *FUNCTION);
+	例如：补全功能，默认是TAB，补全的是文件名，如果希望修改成其他，则使用rl_bind_key()。
+	示例： 在程序初始化时调用，rl_bind_key ('\t', rl_mycallback);那么用户按TAB键时调用
+	成功返回0，如果KEY参数非法，则返回非法值。
+
+2.2 功能定制
+	2.2.1 readline函数定义
+	`typedef int rl_command_func_t (int, int);'
+	
+
+`typedef char *rl_compentry_func_t (const char *, int);'
+	
+
+`typedef char **rl_completion_func_t (const char *, int, int);'
+	
+
+`typedef char *rl_quote_func_t (char *, int, char *);'
+
+
+	`typedef char *rl_dequote_func_t (char *, int);'
+	
+
+`typedef int rl_compignore_func_t (char **);'
+	
+
+`typedef void rl_compdisp_func_t (char **, int, int);'
+	
+
+`typedef int rl_hook_func_t (void);'
+
+
+	`typedef int rl_getc_func_t (FILE *);'
+
+
+	`typedef int rl_linebuf_func_t (char *, int);'
+	
+
+`typedef int rl_intfunc_t (int);'
+
+
+	`#define rl_ivoidfunc_t rl_hook_func_t'
+
+
+	`typedef int rl_icpfunc_t (char *);'
+
+
+	`typedef int rl_icppfunc_t (char **);'
+
+
+	`typedef void rl_voidfunc_t (void);'
+	
+
+`typedef void rl_vintfunc_t (int);'
+	
+
+`typedef void rl_vcpfunc_t (char *);'
+
+
+	`typedef void rl_vcppfunc_t (char **);'
+
+	2.2.2 实现一个新功能函数
+
+2.3 readline变量
+	char *rl_line_buffer
+		可以向里写，rl_extend_line_buffer()能够增加rl_line_buffer变量的长度。
+	int rl_point
+		光标当前在rl_line_buffer中的偏移值。
+	int rl_end
+		在rl_line_buffer中呈现的字符数量。当光标在rl_line_buffer末尾时rl_point等于rl_end。
+	int rl_mark
+		"MARK"（保存位置点）在当前行上标记，如果设置，则mark和point定义一个_region_。
+	int rl_done
+		设置rl_done一个非0值，则触发readline立即返回当前行。
+	int rl_num_chars_to_read
+		在调用readline()函数之前，则之后接收的到‘accept-line’上。
+	int rl_pending_input
+		Setting this to a value makes it the next keystroke read.
+		This is a way to stuff a single character into the input stream.
+
+	int rl_dispatching
+		如果一个绑定的key回调函数被调用则设置一个非0值。否则是0.
+		应用程序可以通过这个值来判断，是直接调用还是被readline分发的。
+	int rl_erase_empty_line
+		设置此值为非0值，触发完全擦除当前行（包括prompt提示符）。
+		光标移动到新空行的最开始位置。
+	char *rl_prompt
+		readline使用的提示符。是在readline()函数中设置的，建议不要直接修改此变量值。
+		如果需要修改则可以使用rl_set_prompt()函数修改，或者调用readline()修改它。
+	char *rl_display_prompt
+		字符串作为prompt提示符显示，通常有RL_PROMPT标识，但也可以临时的修改。
+	int rl_already_prompted
+		如果应用程序希望在调用readline()函数之前就显示提示符，则可以设置一个非0值给rl_already_prompted。
+	const char * rl_library_version
+		lib库的版本号
+	int rl_readline_version
+		用16进制整数表示的版本号，例如readline-4.2则是0x0402
+	int rl_gnu_readline_p
+		值总是1，指示这是GNU readline而不是其他仿真。
+	const char * rl_terminal_name
+		终端类型，用于初始化。设置成环境变量TERM的值。
+	const char * rl_readline_name
+		应用程序设置的独一无二的名字。这名字假定是inputrc文件解析。
+	FILE * rl_instream
+		默认是STDIN
+	FILE * rl_outstream
+		默认STDOUT
+	int rl_prefer_env_winsize
+		如果是非0值，则优先使用环境变量LINES和COLUMNS值。
+	rl_command_func_t * rl_last_func
+		最后执行了的命令处理函数地址，可用于检查功能是否被执行了。
+	rl_hook_func_t * rl_startup_hook
+		如果不为空（非0值），则在readline打印prompt提示符之前调用此函数。
+	rl_hook_func_t * rl_pre_input_hook
+		如果不为空（非0值），则在readline打印prompt提示符之后，读取输入行之前，调用此函数。
+	rl_hook_func_t * rl_event_hook
+		如果不为空（非0值），则在等待终端输入的时候周期的被调用，但一秒最多被调10次。
+	rl_getc_func_t * rl_getc_function
+		如果不为空（非0值），则表示定义自己的读字符函数。
+	rl_voidfunc_t * rl_redisplay_function
+		如果不为空（非0值），则调用此跟新显示编辑缓存中的内容。
+	rl_vintfunc_t * rl_prep_term_function
+		如果不为空（非0值），则间接的设置终端，是否8bit字符。
+	rl_voidfunc_t * rl_deprep_term_function
+		如果不为空（非0值），则间接的调用此重置终端。
+	Keymap rl_executing_keymap
+		设置keymap。
+	Keymap rl_binding_keymap
+		最新的keymap设置。
+	char * rl_executing_macro
+		This variable is set to the text of any currently-executing macro.
+	int rl_readline_state
+		把当前readline的状态按bit为写进了此变量。
+		A bit is set with the `RL_SETSTATE' macro, and unset with
+     the `RL_UNSETSTATE' macro.  Use the `RL_ISSTATE' macro to test
+     whether a particular state bit is set.  Current state bits include:
+		`RL_STATE_NONE'	表示readline还未被调用或者开始初始化。
+		RL_STATE_INITIALIZING 表示正在初始化内部数据结构。
+		RL_STATE_INITIALIZED 表示完成了初始化
+		RL_STATE_READCMD    正在从键盘读命令
+		RL_STATE_METANEXT   正在读meta-prefix之后的更多输入。
+		RL_STATE_DISPATCHING  正在分发命令
+		RL_STATE_MOREINPUT	在读更多的输入
+		RL_STATE_ISEARCH	在执行历史增量搜索
+		RL_STATE_NSEARCH	历史的非增量搜索
+		RL_STATE_SEARCH		前后搜索历史字符串
+		RL_STATE_NUMERICARG	在读数字参数
+		RL_STATE_MACROINPUT  	读键盘预先定义的宏
+		RL_STATE_MACRODEF	读字符定义啊键盘宏
+		RL_STATE_OVERWRITE	覆盖写模式
+		RL_STATE_COMPLETING	执行词补全
+		RL_STATE_SIGHANDLER	执行信号句柄
+		RL_STATE_UNDOING	取消
+		RL_STATE_INPUTPENDING	在pending
+		RL_STATE_TTYCSAVED	保存终端指定的字符值
+		RL_STATE_CALLBACK	正在切换到回调接口
+		RL_STATE_VIMOTION	vi模式
+		RL_STATE_MULTIKEY	在读多key命令
+		RL_STATE_VICMDONCE
+		RL_STATE_DONE		已经完成读输入，并返回给调用者。
+
+	int rl_explicit_arg
+		如果用户指定了明确的数字参数，则设置非0值。仅当绑定的命令有效。
+	int rl_numeric_arg
+		用户设置了任意数字参数明确的规格。仅当绑定的命令有效。
+	int rl_editing_mode
+		值1表示emacs模式，0表示vi模式。
+
+2.4 readline便利功能
+	2.4.1 定义函数
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
