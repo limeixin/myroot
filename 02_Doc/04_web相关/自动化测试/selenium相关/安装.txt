@@ -1,0 +1,41 @@
+1、安装selenium
+-------------------------------------------------------------------------------
+1.1、可以手动下载，然后用python setup.py install安装
+https://pypi.python.org/pypi/selenium/
+
+
+1.2、也可以自动安装：
+c:\Python36\Scripts>python -m pip install selenium
+Collecting selenium
+  Downloading selenium-3.8.1-py2.py3-none-any.whl (942kB)
+    100% |████████████████████████████████| 952kB 288kB/s
+Installing collected packages: selenium
+Successfully installed selenium-3.8.1
+
+c:\Python36\Scripts>
+-------------------------------------------------------------------------------
+
+2、安装三大浏览器驱动driver
+    由于W3C标准化以及各大浏览器厂商的积极跟进,自WebDriver 3.0 之后,Selenium不再提供默认的浏览器支持。
+    1.chromedriver 下载地址：https://code.google.com/p/chromedriver/downloads/list
+    2.Firefox的驱动geckodriver 下载地址：https://github.com/mozilla/geckodriver/releases/
+    3.IE的驱动IEdriver 下载地址：http://www.nuget.org/packages/Selenium.WebDriver.IEDriver/
+
+    Firefox
+    https://github.com/mozilla/geckodriver/releases
+
+    Edge
+    对于win10的edge，需要下载webdriver地址
+    https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+    选择版本号方法：
+    开始》设置》系统》关于
+    查看OS版本号
+
+    IE9以上版本，需要先下载InternetExplorerDriver.exe
+    https://pan.baidu.com/s/1i4Td8ax
+    Chrome
+    http://chromedriver.storage.googleapis.com/index.html?path=2.25/
+    
+
+3、
+. 
