@@ -33,6 +33,7 @@ c:\Python36\Scripts>
 
     IE9以上版本，需要先下载InternetExplorerDriver.exe
     https://pan.baidu.com/s/1i4Td8ax
+
     Chrome
     http://chromedriver.storage.googleapis.com/index.html?path=2.25/
     
