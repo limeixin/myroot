@@ -36,6 +36,7 @@ c:\Python36\Scripts>
 
     Chrome
     http://chromedriver.storage.googleapis.com/index.html?path=2.25/
+    http://chromedriver.storage.googleapis.com/index.html
     
 
 3¡¢

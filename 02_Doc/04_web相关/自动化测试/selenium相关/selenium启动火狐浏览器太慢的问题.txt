@@ -1,0 +1,25 @@
+解决方案是百度出来的，代码如下：
+            profile = webdriver.FirefoxProfile()
+            profile.set_preference("browser.startup.homepage", "about:blank")
+            profile.set_preference("startup.homepage_welcome_url", "about:blank")
+            profile.set_preference("startup.homepage_welcome_url.additional", "about:blank")
+            driver = webdriver.Firefox(profile)
+
+　　虽然我对profile这个东西，不甚了解。但是我知道这个配置很重要。
+
+　　同样使用selenium驱动firefox浏览器访问没有证书的https站点，这也是相当地慢。解决方案如下：
+            profile = webdriver.FirefoxProfile()
+            profile.assume_untrusted_cert_issuer =True
+            accept_untrusted_certs = True
+            driver = webdriver.Firefox(profile)
+
+
+
+如果，页面需要加载的图片多，也会导致慢，我们可以做如下配置：
+
+profile = webdriver.FirefoxProfile()
+profile.set_preference('permissions.default.image', 2)  #某些firefox只需要这个
+profile.set_preference('browser.migration.version', 9001)  #部分需要加上这个
+?
+driver = webdriver.Firefox(firefox_profile=firefox_profile)
+driver.get('https://www.baidu.com/'）
