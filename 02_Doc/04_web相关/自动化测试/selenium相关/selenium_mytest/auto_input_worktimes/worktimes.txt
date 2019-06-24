@@ -1,0 +1,21 @@
+
+## 注意事项：
+## 1、task1、task2...，当一天有多个任务时可以自由向后添加
+## 2、project_class内容可以选择：项目CDT前调研等工时、CDT工时、研发工时、维护工时、公共事务
+## 3、project内容：此内容需要在选择项目大类后，按实际选择
+## 4、maintain_class只有在project_class为"维护工时"才有意义，按实际选择即可
+## 5、hour填写工时投入小时数
+## 6、remarks填写工作内容描述
+
+
+[task1]
+
+project_class = 项目CDT前调研等工时
+
+project = 各项目CDT前调研等工时投入专用
+
+maintain_class = 
+
+hour = 9
+
+remarks = 前端NVMeoF预研：命令流程分析
