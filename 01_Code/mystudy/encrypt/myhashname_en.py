@@ -19,8 +19,11 @@ if __name__ == '__main__':
 
         k = getpass.getpass(prompt="key: ")
         n = input('fn: ')
-        h = hashlib.blake2b(digest_size=16, key=k.encode('utf-8'))
-        h.update(n.encode('utf-8'))
-        print(h.hexdigest())
+        while (not (len(n) == 1 and n[0] == 'q')):
+            h = hashlib.blake2b(digest_size=16, key=k.encode('utf-8'))
+            h.update(n.encode('utf-8'))
+            print(h.hexdigest())
+
+            n = input('fn: ')
     else:
         sys.exit()

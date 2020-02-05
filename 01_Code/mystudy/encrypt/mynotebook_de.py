@@ -26,8 +26,7 @@ def myreverse(s):
     return s[::-1]
 
 
-def cat_file():
-    file = input('file: ')
+def cat_file(file):
     if os.path.isfile(file):
         with open(file, mode='r') as f:
             for line in f:
@@ -38,4 +37,7 @@ def cat_file():
 
 if __name__ == '__main__':
     init_authentication()
-    cat_file()
+    filen = input('file: ')
+    while (not (len(filen) == 1 and filen[0] == 'q')):
+        cat_file(filen)
+        filen = input('file: ')
