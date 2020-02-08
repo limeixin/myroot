@@ -85,7 +85,11 @@ def readf():
 ###############################################################################
 def savef():
     is_save_success = False
+
     fname = file.get()
+    if len(fname) < 1:
+        return
+
     file_bak_name = fname + '.bak'
 
     # Text get, '0.0' is from row 0 and column 0
