@@ -10,6 +10,7 @@ import getpass
 import tkinter as tk
 import tkinter.messagebox
 
+#depend pip3 install pycryptodome
 from Crypto.Cipher import AES
 
 
